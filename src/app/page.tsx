@@ -130,7 +130,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-        3c/div>
+        </div>
       </section>
 
       {/* Disclaimer */}
