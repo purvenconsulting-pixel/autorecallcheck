@@ -2,8 +2,23 @@ import SearchTool from '@/components/SearchTool'
 import { ShieldCheck, Search, AlertTriangle, CheckCircle, Clock, Database } from 'lucide-react'
 
 export default function Home() {
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'AutoRecallCheck',
+    url: 'https://autorecallcheck.com/',
+    description: 'Free car recall and safety check tool powered by official NHTSA government data. Search by VIN or make/model.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://autorecallcheck.com/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+
       {/* Hero */}
       <section className="bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 text-white py-14 px-4">
         <div className="max-w-4xl mx-auto text-center mb-10">
@@ -115,7 +130,7 @@ export default function Home() {
               </button>
             ))}
           </div>
-        </div>
+        3c/div>
       </section>
 
       {/* Disclaimer */}
