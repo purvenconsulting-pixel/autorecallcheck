@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import { ChevronDown } from 'lucide-react'
+
+const SITE_URL = 'https://autorecallcheck.com'
 
 export const metadata: Metadata = {
   title: 'FAQ — AutoRecallCheck',
   description: 'Frequently asked questions about car recalls, VIN lookup, and how AutoRecallCheck works.',
+  alternates: { canonical: '/faq/' },
 }
 
 const faqs = [
@@ -18,27 +20,48 @@ const faqs = [
   { q: 'How long do I have to get a recall fixed?', a: 'There is no strict deadline, but you should address recalls promptly — especially Class I recalls which can pose immediate safety risks. Parts are sometimes unavailable immediately after a recall announcement; call your dealer to check availability and schedule service.' },
   { q: 'Can I check a car I am thinking about buying?', a: 'Absolutely — and you should. Search by VIN or by year/make/model before purchasing any used vehicle. If there are open recalls, ask the seller whether they have been completed and request service records as proof.' },
   { q: 'What if the recall repair is not available yet?', a: "Sometimes a recall is announced before parts are ready. NHTSA requires manufacturers to notify you when the remedy becomes available. In the meantime, follow any interim safety guidance from the manufacturer. You can also check NHTSA.gov or call 1-888-327-4236 for updates." },
-  { q: 'Does AutoRecallCheck cover motorcycles and trucks?', a: 'Yes. NHTSA recall data covers cars, trucks, SUVs, motorcycles, buses, and other motor vehicles. Our tool searches all vehicle types in the NHTSA database.' },
 ]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.a,
+    },
+  })),
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: SITE_URL + '/faq/' },
+  ],
+}
 
 export default function FAQ() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Frequently Asked Questions</h1>
-      <p className="text-gray-500 mb-10">Everything you need to know about car recalls and using AutoRecallCheck.</p>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <h1 className="text-3xl font-bold text-gray-900 mb-3">Frequently Asked Questions</h1>
+      <p className="text-gray-500 text-lg mb-10">Everything you need to know about car recalls, VIN lookup, and how AutoRecallCheck works.</p>
       <div className="space-y-4">
-        {faqs.map(({ q, a }) => (
-          <div key={q} className="card p-6">
-            <h3 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
-              <ChevronDown className="w-4 h-4 text-brand-600 shrink-0" />{q}
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed pl-6">{a}</p>
-          </div>
+        {faqs.map((faq, i) => (
+          <details key={i} className="card p-5 group">
+            <summary className="font-semibold text-gray-900 cursor-pointer flex items-center justify-between list-none">
+              {faq.q}
+              <span className="text-brand-600 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <p className="mt-3 text-sm text-gray-700 leading-relaxed">{faq.a}</p>
+          </details>
         ))}
       </div>
-      <p className="text-xs text-gray-400 mt-8 text-center">
-        For official recall information, always verify at <a href="https://www.nhtsa.gov" target="_blank" rel="noopener noreferrer" className="underline">NHTSA.gov</a> or call 1-888-327-4236.
-      </p>
     </div>
   )
 }

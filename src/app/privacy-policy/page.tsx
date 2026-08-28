@@ -1,9 +1,26 @@
 import type { Metadata } from 'next'
-export const metadata: Metadata = { title: 'Privacy Policy — AutoRecallCheck', description: 'Privacy policy for AutoRecallCheck.com' }
+
+const SITE_URL = 'https://autorecallcheck.com'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy — AutoRecallCheck',
+  description: 'Privacy policy for AutoRecallCheck.com',
+  alternates: { canonical: '/privacy-policy/' },
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Privacy Policy', item: SITE_URL + '/privacy-policy/' },
+  ],
+}
 
 export default function PrivacyPolicy() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
       <p className="text-gray-500 mb-8">Last updated: June 2025</p>
       <div className="space-y-6 text-sm text-gray-700 leading-relaxed">
@@ -20,12 +37,16 @@ export default function PrivacyPolicy() {
           <p>We use cookies for analytics and advertising purposes. Third-party vendors (including Google) may use cookies to serve ads based on your browsing history. You can control cookies through your browser settings.</p>
         </div>
         <div className="card p-6">
-          <h2 className="font-bold text-gray-900 text-lg mb-2">4. Data Security</h2>
-          <p>We do not store VIN numbers, vehicle searches, or personal information on our servers. Search queries are sent directly to the NHTSA public API and results are displayed in real time.</p>
+          <h2 className="font-bold text-gray-900 text-lg mb-2">4. Third-Party Links</h2>
+          <p>Our site may link to external sites (such as NHTSA.gov) that are not operated by us. We are not responsible for the privacy practices of these external sites and recommend reviewing their privacy policies.</p>
         </div>
         <div className="card p-6">
-          <h2 className="font-bold text-gray-900 text-lg mb-2">5. Contact</h2>
-          <p>For privacy-related questions, contact us via our <a href="/contact" className="text-brand-600 underline">Contact page</a>.</p>
+          <h2 className="font-bold text-gray-900 text-lg mb-2">5. Data Security</h2>
+          <p>We do not store personal data from recall searches. All searches are processed in real time and results are not persisted. Analytics data is anonymized and aggregated.</p>
+        </div>
+        <div className="card p-6">
+          <h2 className="font-bold text-gray-900 text-lg mb-2">6. Contact</h2>
+          <p>For privacy-related questions, contact us at <a href="mailto:hello@autorecallcheck.com" className="text-brand-600 underline">hello@autorecallcheck.com</a>.</p>
         </div>
       </div>
     </div>

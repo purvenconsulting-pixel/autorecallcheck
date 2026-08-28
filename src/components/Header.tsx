@@ -14,9 +14,10 @@ export default function Header() {
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
           <Link href="/" className="hover:text-brand-600 transition-colors">Recall Lookup</Link>
-          <Link href="/faq" className="hover:text-brand-600 transition-colors">FAQ</Link>
-          <Link href="/methodology" className="hover:text-brand-600 transition-colors">Our Data</Link>
-          <Link href="/about" className="hover:text-brand-600 transition-colors">About</Link>
+          <Link href="/blog/" className="hover:text-brand-600 transition-colors">Blog</Link>
+          <Link href="/faq/" className="hover:text-brand-600 transition-colors">FAQ</Link>
+          <Link href="/methodology/" className="hover:text-brand-600 transition-colors">Our Data</Link>
+          <Link href="/about/" className="hover:text-brand-600 transition-colors">About</Link>
           <Link href="/" className="btn-primary text-sm py-2 px-4">Check Your Car →</Link>
         </nav>
         <button className="md:hidden p-2" onClick={() => setOpen(!open)}>
@@ -26,10 +27,11 @@ export default function Header() {
       {open && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-4 text-sm font-medium">
           <Link href="/" onClick={() => setOpen(false)} className="hover:text-brand-600">Recall Lookup</Link>
-          <Link href="/faq" onClick={() => setOpen(false)} className="hover:text-brand-600">FAQ</Link>
-          <Link href="/methodology" onClick={() => setOpen(false)} className="hover:text-brand-600">Our Data</Link>
-          <Link href="/about" onClick={() => setOpen(false)} className="hover:text-brand-600">About</Link>
-          <Link href="/contact" onClick={() => setOpen(false)} className="hover:text-brand-600">Contact</Link>
+          <Link href="/blog/" onClick={() => setOpen(false)} className="hover:text-brand-600">Blog</Link>
+          <Link href="/faq/" onClick={() => setOpen(false)} className="hover:text-brand-600">FAQ</Link>
+          <Link href="/methodology/" onClick={() => setOpen(false)} className="hover:text-brand-600">Our Data</Link>
+          <Link href="/about/" onClick={() => setOpen(false)} className="hover:text-brand-600">About</Link>
+          <Link href="/contact/" onClick={() => setOpen(false)} className="hover:text-brand-600">Contact</Link>
         </div>
       )}
     </header>

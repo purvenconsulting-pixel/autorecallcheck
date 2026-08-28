@@ -1,9 +1,26 @@
 import type { Metadata } from 'next'
-export const metadata: Metadata = { title: 'Terms of Use — AutoRecallCheck', description: 'Terms of use for AutoRecallCheck.com' }
+
+const SITE_URL = 'https://autorecallcheck.com'
+
+export const metadata: Metadata = {
+  title: 'Terms of Use — AutoRecallCheck',
+  description: 'Terms of use for AutoRecallCheck.com',
+  alternates: { canonical: '/terms/' },
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Terms of Use', item: SITE_URL + '/terms/' },
+  ],
+}
 
 export default function Terms() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Use</h1>
       <p className="text-gray-500 mb-8">Last updated: June 2025</p>
       <div className="space-y-6 text-sm text-gray-700 leading-relaxed">
